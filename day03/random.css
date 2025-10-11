@@ -1,0 +1,24 @@
+.cra{
+    color: red;
+    height: 115px;
+    width: 500px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: aquamarine;
+    padding:2px;
+    margin: 50px;
+    
+}
+
+.me{
+    color: red;
+     height: 115px;
+    width: 500px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: aquamarine;
+    padding:2px;
+    margin: 50px;
+    
+    
+}
