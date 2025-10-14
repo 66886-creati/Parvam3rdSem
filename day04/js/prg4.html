@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add sum example</title>
+</head>
+<body>
+    <h2>add two numbers </h2>
+
+    <button onclick="showsum()">Add 5+3</button>
+    <p id="sumresult"></p>
+
+    <script>
+        function addnum(a,b){
+            return a+b;
+        }
+        function showsum(){
+            let sum = addnum(5,3);
+            document.getElementById("sumresult").innerHTML = "sum: " + sum;
+        }
+    </script>
+
+</body>
+</html>
