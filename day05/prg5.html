@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse a number and also check weather the reversed number is a palindrome number </title>
+</head>
+<body>
+    <script>
+        let num = 12345; 
+        let reversedNum = 0;
+
+        while (num > 0) {
+            let digit = num % 10; 
+            reversedNum = reversedNum * 10 + digit; 
+            num = Math.floor(num / 10); 
+        }
+        console.log("Reversed Number: " + reversedNum);
+
+        // Check for palindrome
+        let originalNum = reversedNum;
+        if (originalNum === reversedNum) {
+            console.log(originalNum + " is a palindrome number.");
+        } else {
+            console.log(originalNum + " is not a palindrome number.");
+        }
+
+
+
+
+    </script>
+</body>
+</html>

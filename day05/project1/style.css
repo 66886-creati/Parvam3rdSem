@@ -1,0 +1,9 @@
+
+@keyframes flash {
+  0%   { background-color: #d1e7dd; }
+  100% { background-color: transparent; }
+}
+
+.animate-result {
+  animation: flash 0.3s ease-in-out;
+}
