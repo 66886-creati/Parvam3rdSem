@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shooting Game</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #000;
+    }
+
+    #game {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+    }
+
+    #player {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      background-color: limegreen;
+    }
+
+    .bullet {
+      position: absolute;
+      width: 5px;
+      height: 15px;
+      background-color: yellow;
+    }
+
+    .enemy {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-color: red;
+    }
+
+    #score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+<div id="game">
+  <div id="score">Score: 0</div>
+  <div id="player"></div>
+</div>
+
+<script>
+  const game = document.getElementById("game");
+  const player = document.getElementById("player");
+  const scoreDisplay = document.getElementById("score");
+  let score = 0;
+
+  let playerSpeed = 10;
+  let bulletSpeed = 7;
+  let enemySpeed = 2;
+
+  // Move player
+  document.addEventListener("keydown", (e) => {
+    const playerRect = player.getBoundingClientRect();
+    if (e.key === "ArrowLeft" && playerRect.left > 0) {
+      player.style.left = player.offsetLeft - playerSpeed + "px";
+    } else if (e.key === "ArrowRight" && playerRect.right < window.innerWidth) {
+      player.style.left = player.offsetLeft + playerSpeed + "px";
+    } else if (e.key === " " || e.key === "ArrowUp") {
+      shootBullet();
+    }
+  });
+
+  function shootBullet() {
+    const bullet = document.createElement("div");
+    bullet.classList.add("bullet");
+    bullet.style.left = player.offsetLeft + player.offsetWidth / 2 - 2 + "px";
+    bullet.style.top = player.offsetTop + "px";
+    game.appendChild(bullet);
+
+    const interval = setInterval(() => {
+      bullet.style.top = bullet.offsetTop - bulletSpeed + "px";
+
+      // Remove bullet if off-screen
+      if (bullet.offsetTop < 0) {
+        bullet.remove();
+        clearInterval(interval);
+      }
+
+      // Check collision with enemies
+      document.querySelectorAll(".enemy").forEach(enemy => {
+        if (isColliding(bullet, enemy)) {
+          bullet.remove();
+          enemy.remove();
+          clearInterval(interval);
+          score += 10;
+          scoreDisplay.textContent = "Score: " + score;
+        }
+      });
+    }, 10);
+  }
+
+  function spawnEnemy() {
+    const enemy = document.createElement("div");
+    enemy.classList.add("enemy");
+    enemy.style.left = Math.random() * (window.innerWidth - 40) + "px";
+    enemy.style.top = "0px";
+    game.appendChild(enemy);
+
+    const interval = setInterval(() => {
+      enemy.style.top = enemy.offsetTop + enemySpeed + "px";
+
+      // End game if enemy reaches bottom
+      if (enemy.offsetTop > window.innerHeight) {
+        alert("Game Over! Final Score: " + score);
+        window.location.reload();
+      }
+
+      // Collision with player
+      if (isColliding(enemy, player)) {
+        alert("You were hit! Final Score: " + score);
+        window.location.reload();
+      }
+    }, 20);
+  }
+
+  function isColliding(a, b) {
+    const rect1 = a.getBoundingClientRect();
+    const rect2 = b.getBoundingClientRect();
+    return !(
+      rect1.top > rect2.bottom ||
+      rect1.bottom < rect2.top ||
+      rect1.right < rect2.left ||
+      rect1.left > rect2.right
+    );
+  }
+
+  // Spawn enemies at intervals
+  setInterval(spawnEnemy, 1500);
+</script>
+
+</body>
+</html>
