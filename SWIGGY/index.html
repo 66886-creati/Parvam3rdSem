@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swiggy Clone Enhanced</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-dark px-3">
+  <a class="navbar-brand" href="#">Swiggy Clone</a>
+  <button class="btn btn-warning" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
+</nav>
+
+<!-- Loader
+<div id="loader" class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+  <div class="spinner-border text-warning" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div> -->
+
+<!-- Welcome Image / Banner -->
+<div class="container my-4">
+  <img src="data:image/webp;base64,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" alt="Welcome Banner" class="img-fluid rounded shadow" height="850px" width="2000px" />
+</div>
+
+
+<!-- Restaurants -->
+<div class="container my-4" id="restaurant-container" style="display: none;">
+  <div class="row" id="restaurants">
+    <!-- Dynamic content -->
+  </div>
+</div>
+
+<!-- Cart Sidebar -->
+<div id="cart-sidebar" class="cart-sidebar">
+  <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
+    <h5>Your Cart</h5>
+    <button class="btn-close" onclick="toggleCart()"></button>
+  </div>
+  <div id="cart-items" class="p-3"></div>
+  <div class="p-3 border-top">
+    <h6>Total: ₹<span id="cart-total">0</span></h6>
+    <button class="btn btn-success w-100 mt-2" onclick="checkout()">Checkout</button>
+  </div>
+</div>
+
+<!-- Bootstrap Toast (Notification) -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="toast" class="toast bg-success text-white" role="alert">
+    <div class="toast-body">Item added to cart!</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+
+<!-- Checkout Image Modal -->
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0">
+      <div class="modal-body p-0">
+        <img src="https://your-image-url-here.jpg" alt="Thank You" class="img-fluid w-100 rounded" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

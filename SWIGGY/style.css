@@ -1,0 +1,43 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.card {
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.cart-sidebar {
+  position: fixed;
+  right: -400px;
+  top: 0;
+  width: 400px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: right 0.3s;
+  overflow-y: auto;
+}
+
+.cart-sidebar.open {
+  right: 0;
+}
+
+.toast {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+#restaurant-container {
+  display: block !important;
+}
+
